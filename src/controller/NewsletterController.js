@@ -1,7 +1,8 @@
 const mysql = require("../utils/mysqlService")
 
 const create = async (req, res) => {
-    mysql.create(req.body)
+    console.log(req.body)
+    //mysql.create(req.body)
     res.status(200).json({test: "test"})
 }
 
@@ -11,7 +12,6 @@ const read = async (req, res) => {
 }
 
 const update = async (req, res) => {
-    console.log(req)
     mysql.update(req.body)
     res.status(200).json({test: "test"})
 }

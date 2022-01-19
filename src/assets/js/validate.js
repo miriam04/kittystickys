@@ -2,11 +2,14 @@
 */
 
 const form = document.getElementById('form');
+const vorname = document.getElementById('vorname');
 const nachname = document.getElementById('nachname');
 const email = document.getElementById('email');
-const personenAnzahl = document.getElementById('personenanzahl')
-const passwort = document.getElementById('passwort');
-const datum = document.getElementById('datum');
+const telefon = document.getElementById('telefon')
+const strasse = document.getElementById('strasse');
+const strassennummer = document.getElementById('strassennummer');
+const plz = document.getElementById('plz');
+const stadt = document.getElementById('stadt');
 
 // Fehlermeldung 
 function showError(input, message) {
@@ -83,31 +86,48 @@ function getFieldName(input) {
 
 function handleSuccess() {
   console.log('success')
+  console.log(JSON.stringify({
+    "name": vorname,
+    "lastname": nachname,
+    "email": email,
+    "phonenumber": telefon,
+    "street": strasse,
+    "streetnumber": strassennummer,
+    "zip": plz,
+    "city": stadt
+  }))
     fetch('/api/newsletter', {
       method: "put",
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
-        "name": "Miriam",
-        "lastname": "Maag",
-        "email": "tttt@gmail.com",
-        "phonenumber": "098758484748",
-        "street": "halehhoene",
-        "streetnumber": "4",
-        "zip": "5757",
-        "city": "Steinhausen"
+        "name": vorname,
+        "lastname": nachname,
+        "email": email,
+        "phonenumber": telefon,
+        "street": strasse,
+        "streetnumber": strassennummer,
+        "zip": plz,
+        "city": stadt
       })
     })
     //form.innerHTML = '<h1>Vielen Dank, dass Sie sich für unseren Newsletter angemeldet haben. Sie werden in kürze ein Bestätigungs E-Mail von uns erhalten!</h1>'
 }
 
 function validateForm(){
-  if(!checkRequired([nachname, email, passwort, datum, personenAnzahl])){
+  if(!checkRequired([vorname, nachname, email, telefon, strasse, strassennummer, plz, stadt])){
       let statusList = []
     //Validierung Zeichenlänge
-    statusList.push(checkLength(nachname, 3, 15));
-    statusList.push(checkLength(passwort, 6, 25));
+    statusList.push(checkLength(vorname, 3, 50));
+    statusList.push(checkLength(nachname, 3, 50));
+    statusList.push(checkLength(strasse, 2, 200));
+    statusList.push(checkLength(stadt, 2, 200));
+    statusList.push(checkLength(telefon, 10, 10));
     statusList.push(checkEmail(email));
-    console.log(personenAnzahl.value)
-    statusList.push(checkIsNummer(personenAnzahl))
+    statusList.push(checkIsNummer(telefon))
+    statusList.push(checkIsNummer(strassennummer))
+    statusList.push(checkIsNummer(plz))
 
   //Erfolgsmeldung
       statusList = statusList.filter(x => x !== true)
@@ -119,11 +139,8 @@ function validateForm(){
 }
 
 form.addEventListener('submit', function(e) {
-  handleSuccess()
   //https://www.w3schools.com/jsref/event_preventdefault.asp
   e.preventDefault();
   //First validate form
   validateForm();
-
-  console.log('jo')
 });
