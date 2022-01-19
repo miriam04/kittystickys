@@ -11,10 +11,13 @@ const read = async (req, res) => {
 }
 
 const update = async (req, res) => {
+    console.log(req)
+    mysql.update(req.body)
     res.status(200).json({test: "test"})
 }
 
 const deleteById = async (req, res) => {
+    mysql.delete(req.body.id)
     res.status(200).json({test: "test"})
 }
 

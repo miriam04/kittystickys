@@ -12,7 +12,7 @@ class MysqlService {
     mysqlConnect() {
         con = mysql.createConnection({
             host: "localhost",
-            user: "root",
+            user: "admin",
             password: "Hello1234",
             database: "kittystickysdb"
         })
@@ -48,9 +48,9 @@ class MysqlService {
         })
     }
 
-    update() {
+    update({id, name, lastname, email, phonenumber, street, streetnumber, zip, city}) {
         return new Promise(function(res, rej) {
-            con.query(`SELECT * FROM kittystickysdb.newsletter;`, (err, rows) => {
+            con.query(`UPDATE \`kittystickysdb\`.\`newsletter\` SET \`name\` = '${name}', \`lastname\` = '${lastname}', \`email\` = '${email}', \`phonenumber\` = '${phonenumber}', \`street\` = '${street}', \`streetnumber\` = '${streetnumber}', \`zip\` = '${zip}', \`city\` = '${city}' WHERE (\`id\` = '${id}');`, (err, rows) => {
                 if(err) console.log(err)
                 if(rows.length <= 0) {
                     res(undefined)
@@ -61,9 +61,9 @@ class MysqlService {
         })
     }
 
-    delete() {
+    delete(id) {
         return new Promise(function(res, rej) {
-            con.query(`SELECT * FROM kittystickysdb.newsletter;`, (err, rows) => {
+            con.query(`DELETE FROM \`kittystickysdb\`.\`newsletter\` WHERE (\`id\` = '${id}');`, (err, rows) => {
                 if(err) console.log(err)
                 if(rows.length <= 0) {
                     res(undefined)

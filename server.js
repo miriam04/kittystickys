@@ -27,10 +27,10 @@ app.put("/api/newsletter", jsonParser, create)
 app.get("/api/newsletter", read)
 
 // Update
-app.post("/api/newsletter", update)
+app.post("/api/newsletter", jsonParser, update)
 
 // Delete
-app.delete("/api/newsletter", deleteById)
+app.delete("/api/newsletter", jsonParser, deleteById)
 
 app.listen(8080, () => {
     console.log('Server wurde auf http://localhost:8080 gestartet...')
