@@ -82,7 +82,21 @@ function getFieldName(input) {
 }
 
 function handleSuccess() {
-    form.innerHTML = '<h1>Vielen Dank, dass Sie sich für unseren Newsletter angemeldet haben. Sie werden in kürze ein Bestätigungs E-Mail von uns erhalten!</h1>'
+  console.log('success')
+    fetch('/api/newsletter', {
+      method: "put",
+      body: JSON.stringify({
+        "name": "Miriam",
+        "lastname": "Maag",
+        "email": "tttt@gmail.com",
+        "phonenumber": "098758484748",
+        "street": "halehhoene",
+        "streetnumber": "4",
+        "zip": "5757",
+        "city": "Steinhausen"
+      })
+    })
+    //form.innerHTML = '<h1>Vielen Dank, dass Sie sich für unseren Newsletter angemeldet haben. Sie werden in kürze ein Bestätigungs E-Mail von uns erhalten!</h1>'
 }
 
 function validateForm(){
@@ -105,8 +119,11 @@ function validateForm(){
 }
 
 form.addEventListener('submit', function(e) {
+  handleSuccess()
   //https://www.w3schools.com/jsref/event_preventdefault.asp
   e.preventDefault();
   //First validate form
   validateForm();
+
+  console.log('jo')
 });
