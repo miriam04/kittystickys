@@ -6,7 +6,7 @@ let app = express()
 
 app.engine('html', require('ejs').renderFile);
 app.use(express.static(__dirname + '/src/views'))
-app.use(express.static(__dirname + '/src/assets'))
+app.use(express.static(__dirname + '/src'))
 app.set('view engine', 'html');
 
 
