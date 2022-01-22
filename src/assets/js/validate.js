@@ -13,8 +13,11 @@ const stadt = document.getElementById('stadt');
 
 // Fehlermeldung 
 function showError(input, message) {
+  console.log('show error', input, message)
   const formControl = input.parentElement;
   formControl.className = 'form-control error';
+
+  console.log(formControl)
   const small = formControl.querySelector('small');
   small.innerText = message;
 }
@@ -64,6 +67,7 @@ function checkRequired(inputArr) {
 // Zeichenlänge überprüfen
 function checkLength(input, min, max) {
   if (input.value.length < min) {
+    console.log('jaaa')
     showError(
         input,
         `${getFieldName(input)} muss mindestens ${min} Zeichen haben`
@@ -87,14 +91,14 @@ function getFieldName(input) {
 function handleSuccess() {
   console.log('success')
   console.log(JSON.stringify({
-    "name": vorname,
-    "lastname": nachname,
-    "email": email,
-    "phonenumber": telefon,
-    "street": strasse,
-    "streetnumber": strassennummer,
-    "zip": plz,
-    "city": stadt
+    "name": vorname.value,
+    "lastname": nachname.value,
+    "email": email.value,
+    "phonenumber": telefon.value,
+    "street": strasse.value,
+    "streetnumber": strassennummer.value,
+    "zip": plz.value,
+    "city": stadt.value
   }))
     fetch('/api/newsletter', {
       method: "put",
@@ -102,14 +106,14 @@ function handleSuccess() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        "name": vorname,
-        "lastname": nachname,
-        "email": email,
-        "phonenumber": telefon,
-        "street": strasse,
-        "streetnumber": strassennummer,
-        "zip": plz,
-        "city": stadt
+        "name": vorname.value,
+        "lastname": nachname.value,
+        "email": email.value,
+        "phonenumber": telefon.value,
+        "street": strasse.value,
+        "streetnumber": strassennummer.value,
+        "zip": plz.value,
+        "city": stadt.value
       })
     })
     //form.innerHTML = '<h1>Vielen Dank, dass Sie sich für unseren Newsletter angemeldet haben. Sie werden in kürze ein Bestätigungs E-Mail von uns erhalten!</h1>'
@@ -118,16 +122,17 @@ function handleSuccess() {
 function validateForm(){
   if(!checkRequired([vorname, nachname, email, telefon, strasse, strassennummer, plz, stadt])){
       let statusList = []
+      
+    statusList.push(checkEmail(email));
+    statusList.push(checkIsNummer(telefon))
+    statusList.push(checkIsNummer(strassennummer))
+    statusList.push(checkIsNummer(plz))
     //Validierung Zeichenlänge
     statusList.push(checkLength(vorname, 3, 50));
     statusList.push(checkLength(nachname, 3, 50));
     statusList.push(checkLength(strasse, 2, 200));
     statusList.push(checkLength(stadt, 2, 200));
     statusList.push(checkLength(telefon, 10, 10));
-    statusList.push(checkEmail(email));
-    statusList.push(checkIsNummer(telefon))
-    statusList.push(checkIsNummer(strassennummer))
-    statusList.push(checkIsNummer(plz))
 
   //Erfolgsmeldung
       statusList = statusList.filter(x => x !== true)
