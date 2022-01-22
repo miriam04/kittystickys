@@ -116,7 +116,7 @@ function handleSuccess() {
         "city": stadt.value
       })
     })
-    //form.innerHTML = '<h1>Vielen Dank, dass Sie sich für unseren Newsletter angemeldet haben. Sie werden in kürze ein Bestätigungs E-Mail von uns erhalten!</h1>'
+    form.innerHTML = '<h1>Vielen Dank, dass Sie sich für unseren Newsletter angemeldet haben. Sie werden in kürze ein Bestätigungs E-Mail von uns erhalten!</h1>'
 }
 
 function validateForm(){
