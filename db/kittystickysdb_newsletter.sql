@@ -15,6 +15,19 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+-- Create admin and set password
+drop user if exists 'admin'@'localhost';
+create user 'admin'@'localhost' identified WITH mysql_native_password by 'Hello1234';
+-- drop & create database
+drop database if exists `KittyStickysDB`;
+CREATE DATABASE `KittyStickysDB` /*!40100 DEFAULT CHARACTER SET utf8mb4
+    COLLATE utf8mb4_0900_ai_ci */;
+-- set privileges for db admin
+GRANT all privileges ON KittyStickysDB.* TO 'admin'@'localhost';
+
+-- set default db
+use KittyStickysDB;
+
 --
 -- Table structure for table `newsletter`
 --
